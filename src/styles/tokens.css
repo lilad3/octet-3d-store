@@ -1,0 +1,66 @@
+/* =============================================================
+   OCTET — jetons du système visuel
+   Neutres chauds et matériaux du magasin. Le laiton pour tout ce
+   qui situe (codes de zone, pistes, « vous êtes ici »). L'ambre est
+   réservé au produit en vue : son halo, son étiquette, son bouton
+   d'ajout, et la marque suspendue aux produits mis au panier. Le
+   cyan seulement pour ce qui est « en direct » sur les écrans.
+   ============================================================= */
+:root {
+  /* graphite : la signalétique et l'interface */
+  --graphite-950: #141517;
+  --graphite-900: #1D1E21;
+  --graphite-850: #232427;
+  --graphite-800: #2A2C30;
+  --graphite-700: #363840;
+  --graphite-600: #4B4E55;
+
+  /* papier et plâtre : les surfaces claires */
+  --paper: #F4F2EE;
+  --paper-2: #E9E5DE;
+  --plate: #ECE8E1;
+  --mute: #ABA79F;
+  --mute-2: #8D897F;
+
+  /* accents */
+  --brass: #CBA35A;
+  --brass-dim: rgba(203, 163, 90, 0.35);
+  --amber: #F2A21B;
+  --amber-hi: #F7B544;
+  --amber-ink: #1B1408;
+  --cyan: #43C6D6;
+  --green: #4DBB83;
+
+  /* typographie */
+  --font-ui: 'Archivo', 'Segoe UI', system-ui, sans-serif;
+  --font-sign: 'Archivo Narrow', 'Arial Narrow', 'Segoe UI', sans-serif;
+  --font-mono: 'Martian Mono', ui-monospace, 'Cascadia Mono', monospace;
+
+  /* hiérarchie : magasin > rayon > produit > prix > caractéristiques > action */
+  --t-store: 700 1.05rem/1 var(--font-sign);
+  --t-zone: 700 0.95rem/1 var(--font-sign);
+  --t-product: 620 1.65rem/1.15 var(--font-ui);
+  --t-price: 700 1.55rem/1 var(--font-ui);
+  --t-spec: 400 0.875rem/1.45 var(--font-ui);
+  --t-action: 700 0.9rem/1 var(--font-sign);
+
+  /* espacement : pas de 4 px */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 20px; --s-6: 24px; --s-8: 32px; --s-10: 40px;
+
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
+
+  --shadow-panel: 0 18px 50px -12px rgba(10, 10, 12, 0.55), 0 2px 8px rgba(10, 10, 12, 0.3);
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --safe-t: env(safe-area-inset-top, 0px);
+  --safe-r: env(safe-area-inset-right, 0px);
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-l: env(safe-area-inset-left, 0px);
+
+  --sheet-w: 420px;
+  --edge: 16px;
+}

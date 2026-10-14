@@ -1,0 +1,71 @@
+---
+import Icon from './Icon.astro';
+import Byte from './Byte.astro';
+import StorePlan from './StorePlan.astro';
+import { store } from '../data/catalog.js';
+---
+<div id="hud" class="hud" data-ready="false">
+  <header class="bar">
+    <div class="where">
+      <button type="button" class="brand" data-action="home" aria-label={`${store.name} : revenir à l'entrée`}>
+        <Byte lit={[0]} cell={6} gap={2} class="where-byte" />
+        <span class="brand-name">{store.name}</span>
+      </button>
+      <p class="where-zone" aria-live="polite"><span class="where-code">00</span><span class="where-name">Accueil</span></p>
+      <button type="button" class="chip back" data-action="back" hidden>
+        <Icon name="back" size={16} /><span>Retour</span>
+      </button>
+    </div>
+
+    <nav class="dock" aria-label="Outils du magasin">
+      <button type="button" class="dock-btn" data-action="search" aria-keyshortcuts="/">
+        <Icon name="search" /><span class="dock-label">Rechercher</span><kbd>/</kbd>
+      </button>
+      <button type="button" class="dock-btn" data-action="plan" aria-keyshortcuts="M">
+        <Icon name="plan" /><span class="dock-label">Plan</span><kbd>M</kbd>
+      </button>
+      <button type="button" class="dock-btn" data-action="tour" aria-pressed="false">
+        <span class="i-start"><Icon name="tour" /></span><span class="i-stop"><Icon name="stop" /></span>
+        <span class="dock-label">Visite guidée</span>
+      </button>
+      <button type="button" class="dock-btn dock-btn--icon" data-action="sound" aria-label="Couper la musique" hidden>
+        <span class="i-on"><Icon name="soundOn" /></span><span class="i-off"><Icon name="soundOff" /></span>
+      </button>
+      <button type="button" class="dock-btn dock-btn--cart" data-action="cart" aria-label="Panier, 0 article">
+        <Icon name="cart" /><span class="dock-label">Panier</span><span class="cart-count" data-count="0">0</span>
+      </button>
+    </nav>
+  </header>
+
+  <button type="button" class="minimap" data-action="plan" aria-label="Ouvrir le plan du magasin">
+    <StorePlan class="plan-mini" />
+  </button>
+
+  <p class="hint">
+    <span class="hint-fine">Glissez pour regarder · <b>Z Q S D</b> ou flèches pour marcher · cliquez au sol pour y aller</span>
+    <span class="hint-touch">Glissez pour regarder · <b>manette</b> pour marcher · touchez le sol pour y aller</span>
+  </p>
+
+  <div class="tag" aria-hidden="true">
+    <div class="tag-card">
+      <p class="tag-name"></p>
+      <p class="tag-line"><span class="tag-price"></span><span class="tag-stock"><i></i><span></span></span></p>
+      <button type="button" class="tag-open" data-action="open-focused" tabindex="-1">Voir le produit<kbd>E</kbd></button>
+    </div>
+  </div>
+
+  <div class="caption" aria-live="polite" hidden>
+    <p class="caption-name"></p>
+    <p class="caption-text"></p>
+  </div>
+
+  <div class="toast" role="status" hidden>
+    <p class="toast-text"></p>
+    <button type="button" class="chip" data-action="toast"></button>
+  </div>
+
+  <div class="stick" aria-hidden="true">
+    <span class="stick-ring"></span>
+    <span class="stick-knob"></span>
+  </div>
+</div>

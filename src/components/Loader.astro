@@ -1,0 +1,15 @@
+---
+import Byte from './Byte.astro';
+import { store } from '../data/catalog.js';
+---
+<div id="loader" class="loader" role="status" aria-live="polite">
+  <div class="loader-inner">
+    <Byte lit={[]} cell={14} gap={5} class="loader-byte" />
+    <p class="loader-name">{store.name}</p>
+    <p class="loader-text">Ouverture du magasin</p>
+    <div class="loader-fail" hidden>
+      <p class="loader-fail-text"></p>
+      <button type="button" class="btn btn-primary" data-action="catalog">Parcourir le catalogue</button>
+    </div>
+  </div>
+</div>

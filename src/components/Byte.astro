@@ -1,0 +1,10 @@
+---
+/* L'octet du logo : huit bits, un par zone du magasin. `lit` : bits allumés. */
+const { lit = [0, 2, 3, 5, 7], cell = 6, gap = 2, class: className = '' } = Astro.props;
+const width = 8 * cell + 7 * gap;
+---
+<svg class={'byte ' + className} width={width} height={cell} viewBox={`0 0 ${width} ${cell}`} aria-hidden="true">
+  {Array.from({ length: 8 }, (_, i) => (
+    <rect x={i * (cell + gap)} y="0" width={cell} height={cell} data-bit={i} class={lit.includes(i) ? 'on' : ''} />
+  ))}
+</svg>

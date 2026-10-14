@@ -1,0 +1,42 @@
+---
+/* Plan du magasin vu de dessus, dessiné comme une carte électronique :
+   les zones sont des empreintes, les allées des pistes. Généré au build
+   à partir des mêmes coordonnées que la 3D. */
+import { zones } from '../data/catalog.js';
+import { ZONE_RECTS, TRACES, PADS, VIAS, PLAN_W, PLAN_H, toPlan, PLAN_SCALE } from '../scripts/store/plan.js';
+
+const { interactive = false, class: className = '' } = Astro.props;
+const pad = 14;
+const rects = zones.map((z) => {
+  const r = ZONE_RECTS[z.id];
+  const [x0, y0] = toPlan(r.x0, r.z0);
+  const [x1, y1] = toPlan(r.x1, r.z1);
+  return { ...z, x: Math.min(x0, x1), y: Math.min(y0, y1), w: Math.abs(x1 - x0), h: Math.abs(y1 - y0) };
+});
+const traces = TRACES.map((line) => line.map(([x, z]) => toPlan(x, z).join(',')).join(' '));
+const pads = PADS.map((p) => ({ c: toPlan(p.x, p.z), r: p.r * PLAN_SCALE }));
+const vias = VIAS.map((v) => toPlan(v.x, v.z));
+const door = toPlan(0, 16);
+---
+<svg class={'store-plan ' + className} viewBox={`${-pad} ${-pad} ${PLAN_W + pad * 2} ${PLAN_H + pad * 2 + 10}`} role={interactive ? 'group' : 'img'} aria-label="Plan du magasin">
+  <rect class="board" x={-6} y={-6} width={PLAN_W + 12} height={PLAN_H + 12} rx="6" />
+  {rects.map((z) => (
+    <g class="zone" data-zone={z.id} role={interactive ? 'button' : undefined} tabindex={interactive ? 0 : undefined} aria-label={interactive ? `Aller au rayon ${z.code} ${z.name}` : undefined}>
+      <rect x={z.x + 3} y={z.y + 3} width={z.w - 6} height={z.h - 6} rx="3" />
+      <circle class="pin1" cx={z.x + 11} cy={z.y + 11} r="2.2" />
+      <text class="zone-code" x={z.x + 18} y={z.y + 14}>{z.code}</text>
+      <text class="zone-name" x={z.x + z.w / 2} y={z.y + z.h / 2 + 4}>{z.name}</text>
+    </g>
+  ))}
+  {traces.map((points) => <polyline class="trace" points={points} />)}
+  {pads.map((p) => <circle class="pad" cx={p.c[0]} cy={p.c[1]} r={p.r} />)}
+  {vias.map(([x, y]) => <circle class="via" cx={x} cy={y} r="2.6" />)}
+  <g class="cart-dots"></g>
+  <path class="door" d={`M${door[0] - 16} ${door[1] + 1}h32`} />
+  <text class="door-label" x={door[0]} y={door[1] + 14}>entrée</text>
+  <g class="you" transform="translate(150 360)">
+    <circle class="you-halo" r="11" />
+    <path class="you-cone" d="M0 0 L-9 -20 A 22 22 0 0 1 9 -20 Z" />
+    <circle class="you-dot" r="4.2" />
+  </g>
+</svg>
